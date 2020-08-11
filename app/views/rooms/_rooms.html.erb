@@ -1,0 +1,15 @@
+<ul class="list-unstyled">
+  <% rooms.each do |room| %>
+    <li class="media mb-3">
+      <div class="media-body">
+        <div>
+          <%= link_to room.name, room_path(room) %> <span class="text-muted">created at <%= room.created_at %></span>
+        </div>
+        <div>
+          <p><%= room.description %></p>
+        </div>
+      </div>
+    </li>
+  <% end %>
+  <%= paginate rooms %>
+</ul>

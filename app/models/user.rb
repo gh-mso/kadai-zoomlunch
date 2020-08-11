@@ -7,6 +7,6 @@ class User < ApplicationRecord
   has_secure_password
   
   has_many :rooms
-  has_many :room_menbers
-  has_many :rooms, through: :room_menbers, source: :room
+  has_many :room_members
+  has_many :joinedrooms, through: :room_members, source: :room
 end
