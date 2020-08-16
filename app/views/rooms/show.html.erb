@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="card mx-auto col-xs-12 col-md-6">
+  <div class="card mx-auto col-sm-8">
     <div class="card-header">
       <h3 class="card-title"><%= @room.name %></h3>
         <% if current_user == @room.user %>
@@ -10,13 +10,24 @@
             <%= link_to "Delete", @room, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
           </div>
         <% end %>
+        <% if logged_in? %>
+          <div class="btn-group">
+            <%= render 'room_members/join_button', room: @room %>
+          </div>
+        <% end %>
     </div>
     <div class="card-body">
       <ul class="list-unstyled">
-        <li><%= @room.description %></li>
-        <li><%= @room.date_and_time %></li>
-        <li><%= @room.url %></li>
+        <li>Description: <%= @room.description %></li>
+        <li>Date and Time: <%= @room.date_and_time %></li>
+        <li>URL: <%= @room.url %></li>
+        <li>Category: <%= @category.name %></li>
+        <li>Created by: <%= @user.name %></li>
       </ul>
+      <ul class="nav nav-tabs nav-justified mb-3">
+        <li class="nav-item">Room Members</a></li>
+      </ul>
+        <%= render 'users/users', users: @users %>
     </div>
   </div>
 </div>

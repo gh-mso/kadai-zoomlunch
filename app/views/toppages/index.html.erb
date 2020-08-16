@@ -1,5 +1,17 @@
+ <div class="col-sm-12">
+    <ul class="nav nav-tabs nav-justified mb-3">
+      <li class="nav-item"><a href="<%= rooms_path(category_id: 1) %>" class="nav-link <%= 'active' if current_page?(rooms_path(category_id: 1)) %>">Category1</a></li>
+      <li class="nav-item"><a href="<%= rooms_path(category_id: 2) %>" class="nav-link <%= 'active' if current_page?(rooms_path(category_id: 2)) %>">Category2</a></li>
+      <li class="nav-item"><a href="<%= rooms_path(category_id: 3) %>" class="nav-link <%= 'active' if current_page?(rooms_path(category_id: 3)) %>">Category3</a></li>
+    </ul>
+  </div>
+
 <div>
-  <%= render 'rooms/rooms', rooms: @rooms %>
+  <%= render 'rooms/rooms', rooms: @room %>
 </div>
-  
-<%= link_to 'Create New Room', new_room_path, class: 'btn btn-primary btn-block'%>
+
+<% if logged_in? %>
+<% unless current_page?(root_path) then %>
+<%= link_to 'Create New Room', rooms_new_path(@category), class: 'btn btn-primary btn-block col-sm-4 mx-auto'%>
+<% end %>
+<% end %>

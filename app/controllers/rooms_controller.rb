@@ -1,9 +1,12 @@
 class RoomsController < ApplicationController
   before_action :require_user_logged_in, only: [:create]
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:edit, :destroy]
   
   def show
     @room = Room.find(params[:id])
+    @category = @room.category
+    @user = @room.user
+    @users = @room.memberusers.page(params[:page])
   end
   
   def edit
@@ -18,17 +21,18 @@ class RoomsController < ApplicationController
   
   def new
     @room = Room.new
-    @category = Category.first
+    @category = Category.find(params[:id])
   end
 
   def create
     @room = current_user.rooms.build(room_params)
+    @category = Category.find(@room.category_id)
     if @room.save
       flash[:success] = 'room was successfully created'
-      redirect_to root_url
+      redirect_to room_path(@room)
     else
       flash.now[:danger] = 'failed to create room'
-      render 'rooms/new'
+      render :new
     end
   end
 

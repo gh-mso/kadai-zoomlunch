@@ -6,8 +6,16 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   
   get 'signup', to: 'users#new'
-  resources :users, only: [:index, :show, :new, :create]
+  resources :users, only: [:index, :show, :new, :create] do
+    member do
+      get :joinedrooms
+      get :rooms
+    end
+  end
   
   get 'rooms', to: 'toppages#index'
-  resources :rooms, only: [:show, :new, :edit, :update, :create, :destroy]
+  get 'rooms/new/:id', to: 'rooms#new', as: :rooms_new
+  resources :rooms, only: [:show, :edit, :update, :create, :destroy]
+  
+  resources :room_members, only: [:create, :destroy]
 end

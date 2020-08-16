@@ -1,0 +1,11 @@
+<% if current_user.joined?(room) %>
+  <%= form_with(model: current_user.room_members.find_by(room_id: room.id), local: true, method: :delete) do |f| %>
+    <%= hidden_field_tag :room_id, room.id %>
+    <%= f.submit 'Leave', class: 'btn btn-danger btn-sm' %>
+  <% end %>
+<% else %>
+  <%= form_with(model: current_user.room_members.build, local: true) do |f| %>
+    <%= hidden_field_tag :room_id, room.id %>
+    <%= f.submit 'Join', class: 'btn btn-primary btn-sm' %>
+  <% end %>
+<% end %>

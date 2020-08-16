@@ -9,4 +9,18 @@ class User < ApplicationRecord
   has_many :rooms
   has_many :room_members
   has_many :joinedrooms, through: :room_members, source: :room
+  
+  def join(room)
+    self.room_members.find_or_create_by(room_id: room.id)
+  end
+  
+  def leave(room)
+    room_member = self.room_members.find_by(room_id: room.id)
+    room_member.destroy if room_member
+  end
+  
+  def joined?(room)
+    self.joinedrooms.include?(room)
+  end
+  
 end

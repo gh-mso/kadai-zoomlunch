@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @room = @user.joinedrooms
   end
 
   def new
@@ -21,6 +22,11 @@ class UsersController < ApplicationController
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
       render :new
     end
+  end
+  
+  def joinedrooms
+    @user = User.find(params[:id])
+    @room = @user.joinedrooms.page(params[:page])
   end
 
   private
