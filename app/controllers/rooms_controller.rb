@@ -29,6 +29,7 @@ class RoomsController < ApplicationController
     @category = Category.find(@room.category_id)
     if @room.save
       flash[:success] = 'room was successfully created'
+      current_user.join(@room)
       redirect_to room_path(@room)
     else
       flash.now[:danger] = 'failed to create room'
