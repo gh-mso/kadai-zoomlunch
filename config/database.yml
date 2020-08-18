@@ -48,7 +48,9 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: zoomlunch_production
   username: zoomlunch
   password: <%= ENV['ZOOMLUNCH_DATABASE_PASSWORD'] %>
