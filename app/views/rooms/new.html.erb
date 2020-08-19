@@ -1,6 +1,7 @@
 <% if logged_in? %>
   <div class="row mx-auto col-xs-12 col-md-6">
     <%= form_with(model: @room, local: true) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
     
       <%= f.hidden_field :category_id, :value => @category.id %>
     
